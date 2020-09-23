@@ -39,7 +39,7 @@ def index():
     up_btn=WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@id='attachCV']")))
     time.sleep(3)
     import os
-    pathh=os.path.join(os.getcwd(),"Resume_Shakir_July2020_public.docx")
+    pathh=os.path.join(os.getcwd(),"Resume_Shakir_September2020_public.docx")
     up_btn.send_keys(pathh)
     time.sleep(3)
     return render_template('index.html')
