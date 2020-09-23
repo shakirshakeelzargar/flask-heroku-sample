@@ -12,6 +12,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def index():
   try:
+    driver=None
     import os
     from selenium import webdriver
     from selenium.webdriver.common.by import By
@@ -22,6 +23,7 @@ def index():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')  
     chrome_options.binary_location = "/app/.apt/usr/bin/google_chrome"
     driver=webdriver.Chrome("/app/.chromedriver/bin/chromedriver")
     driver.get("http://www.naukri.com")
@@ -56,6 +58,8 @@ def index():
       os.remove(pathh)
     return render_template('index.html')
   except Exception as ex:
+    if driver:
+      driver.quit()
     return render_template('error.html',err="There was an error: "+str(ex))
 
 
