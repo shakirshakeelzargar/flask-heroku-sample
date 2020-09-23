@@ -26,7 +26,7 @@ def index():
     driver.get("http://www.naukri.com")
     return render_template('index.html')
   except Exception as ex:
-    return render_template('error.html',err=str(ex))
+    return render_template('error.html',err="There was an error: "+str(ex))
 
 
 
