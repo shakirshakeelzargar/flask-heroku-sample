@@ -47,7 +47,7 @@ def index():
     from datetime import datetime
     tz = pytz.timezone('Asia/Kolkata')
     datee=str(datetime.now(tz))[:16]
-    newfilepath=os.path.join(os.getcwd(),"Resume_Shakir_September2020_"+datee+"_public.docx")
+    newfilepath=os.path.join(os.getcwd(),"Resume_Shakir_September2020_"+datee.replace(" ","-").replace(":","-")+"_public.docx")
     shutil.copyfile(os.path.join(os.getcwd(),"Resume_Shakir_September2020_public.docx"), newfilepath) 
     pathh=newfilepath
     up_btn.send_keys(pathh)
