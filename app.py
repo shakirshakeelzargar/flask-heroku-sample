@@ -44,7 +44,7 @@ def index():
     import os
     import pytz
     import shutil
-    import datetime
+    from datetime import datetime
     tz = pytz.timezone('Asia/Kolkata')
     datee=str(datetime.now(tz))[:16]
     newfilepath=os.path.join(os.getcwd(),"Resume_Shakir_September2020_"+datee+"_public.docx")
