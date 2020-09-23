@@ -24,13 +24,15 @@ def index():
     chrome_options.binary_location = "/app/.apt/usr/bin/google_chrome"
     driver=webdriver.Chrome("/app/.chromedriver/bin/chromedriver")
     driver.get("http://www.naukri.com")
+    naukri_email=os.environ.get("NAUKRI_EMAIL")
+    naukri_password=os.environ.get("NAUKRI_PASSWORD")
     import time
     time.sleep(3)
     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//a[@title='Jobseeker Login']"))).click()
     time.sleep(3)
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Enter your active Email ID / Username']"))).send_keys("shakirshakeelzargar11@gmail.com")
+    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Enter your active Email ID / Username']"))).send_keys(naukri_email)
     time.sleep(3)
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Enter your password']"))).send_keys("Shakir@11")
+    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Enter your password']"))).send_keys(naukri_password)
     time.sleep(3)
     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//button[@class='btn-primary loginButton']"))).click()
     time.sleep(3)
@@ -39,9 +41,17 @@ def index():
     up_btn=WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@id='attachCV']")))
     time.sleep(3)
     import os
-    pathh=os.path.join(os.getcwd(),"Resume_Shakir_September2020_public.docx")
+    import pytz
+    import shutil
+    tz = pytz.timezone('Asia/Kolkata')
+    datee=str(datetime.now(tz))[:16]
+    newfilepath=os.path.join(os.getcwd(),"Resume_Shakir_September2020_"+datee+"_public.docx")
+    shutil.copyfile(os.path.join(os.getcwd(),"Resume_Shakir_September2020_public.docx"), newfilepath) 
+    pathh=newfilepath
     up_btn.send_keys(pathh)
     time.sleep(3)
+    if os.path.exists(pathh):
+      os.remove(pathh)
     return render_template('index.html')
   except Exception as ex:
     return render_template('error.html',err="There was an error: "+str(ex))
