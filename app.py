@@ -12,6 +12,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def index():
   try:
+    import os
     from selenium import webdriver
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
