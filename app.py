@@ -56,6 +56,7 @@ def index():
     time.sleep(3)
     if os.path.exists(pathh):
       os.remove(pathh)
+    driver.quit()
     return render_template('index.html')
   except Exception as ex:
     if driver:
