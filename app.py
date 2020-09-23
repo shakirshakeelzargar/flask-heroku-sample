@@ -38,7 +38,7 @@ def index():
     time.sleep(3)
     up_btn=WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//input[@id='attachCV']")))
     time.sleep(3)
-    up_btn.send_keys("Resume_Shakir_July2020_public")
+    up_btn.send_keys("Resume_Shakir_July2020_public.docx")
     time.sleep(3)
     return render_template('index.html')
   except Exception as ex:
