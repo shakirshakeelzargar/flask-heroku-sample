@@ -1,8 +1,10 @@
 import os
+import requests
 
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
+
 
 
 
@@ -49,8 +51,11 @@ def index():
     from datetime import datetime
     tz = pytz.timezone('Asia/Kolkata')
     datee=str(datetime.now(tz))[:16]
-    newfilepath=os.path.join(os.getcwd(),"Resume_Shakir_November2020_"+datee.replace(" ","-").replace(":","-")+"_public.docx")
-    shutil.copyfile(os.path.join(os.getcwd(),"Resume_Shakir_November2020_public.docx"), newfilepath) 
+    newfilepath=os.path.join(os.getcwd(),"Resume_Shakir_"+datee.replace(" ","-").replace(":","-")+"_Public.docx")
+    r=requests.get("https://shakirpublicbucket.s3.ap-south-1.amazonaws.com/Resume_Shakir_Public.docx")
+    with open(newfilepath,"wb")as f:
+      f.write(r.content)
+    #shutil.copyfile(os.path.join(os.getcwd(),"Resume_Shakir_November2020_public.docx"), newfilepath) 
     pathh=newfilepath
     up_btn.send_keys(pathh)
     time.sleep(3)
